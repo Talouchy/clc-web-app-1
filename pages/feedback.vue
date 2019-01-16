@@ -75,6 +75,9 @@
 <script>
 export default {
   name: 'Feedback',
-  data: () => ({})
+  data: () => ({}),
+  created: function() {
+    this.$nuxt.$emit('updatePageTitle', 'Feedback')
+  }
 }
 </script>

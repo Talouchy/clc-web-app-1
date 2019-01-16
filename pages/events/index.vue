@@ -97,6 +97,9 @@ export default {
       t: true,
       size: 100
     }
+  },
+  created: function() {
+    this.$nuxt.$emit('updatePageTitle', 'Events')
   }
 }
 </script>
