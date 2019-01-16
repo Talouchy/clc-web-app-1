@@ -3,7 +3,7 @@
     <!-- Toolbar -->
     <Toolbar :page-title="currentPageTitle"/>
 
-    <v-content>
+    <v-content class="pt-0">
       <nuxt />
     </v-content>
 
