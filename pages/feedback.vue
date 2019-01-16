@@ -14,14 +14,14 @@
             align-content-center
             row
             wrap
-            class="rust_app_color lighten-1"
+            class="rust_app_color"
             pa-2
           >
             <!-- flex layout for feedback title -->
             <v-flex>
               <v-card
                 flat
-                class="rust_app_color lighten-1">
+                class="rust_app_color">
                 <v-card-text
                   class=" text-md-center text-sm-center headline white--text font-weight-medium">
                   Please send us your feedback

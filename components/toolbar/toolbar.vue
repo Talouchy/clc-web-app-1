@@ -63,21 +63,21 @@
       flat
       app
       dark 
-      color="#ffffff">
+      class="primary lighten-1">
       <v-btn icon>
         <v-icon 
-          color="#000000"
+          color="white"
           @click.stop="drawer = !drawer">dashboard</v-icon>
       </v-btn>
         
       <v-spacer />
-      <v-toolbar-title class="black--text">{{ pageTitle }}</v-toolbar-title>
+      <v-toolbar-title class="white--text">{{ pageTitle }}</v-toolbar-title>
       <v-spacer />
 
       <v-btn 
         to="/"
         icon>
-        <v-icon color="#000000">home</v-icon>
+        <v-icon color="white">home</v-icon>
       </v-btn>
     </v-toolbar>
   </v-layout>
