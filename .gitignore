@@ -81,4 +81,4 @@ dist
 .idea
 
 # server configs
-server/config
+/config
