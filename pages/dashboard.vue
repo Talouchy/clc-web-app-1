@@ -149,7 +149,7 @@ export default {
       },
       {
         title: 'Gaming',
-        to: '',
+        to: '/games',
         imgSrc: 'https://i.ibb.co/qJsTnKX/jigsaw-2.png',
         flex: 4
       },
