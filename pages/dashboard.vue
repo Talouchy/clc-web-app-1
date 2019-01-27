@@ -125,7 +125,7 @@ export default {
     cards: [
       {
         title: 'Floor Map',
-        to: '',
+        to: '/floor_map',
         imgSrc: 'https://i.ibb.co/br2bxrZ/route.png',
         flex: 4
       },

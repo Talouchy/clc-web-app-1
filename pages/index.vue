@@ -48,6 +48,14 @@
             Events page
           </nuxt-link>
         </h2>
+        <h2
+          class="headline font-weight-bold mb-3">
+          <nuxt-link
+            to="/floor_map"
+            class="subheading mx-3">
+            Floor Map page
+          </nuxt-link>
+        </h2>
       </v-flex>
     </v-layout>
   </v-container>
