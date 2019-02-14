@@ -44,12 +44,73 @@
           target="#dropdown-example"/>
         <v-divider light/>
         <v-spacer/>
-        <v-card-text 
-          fiber_manual_record
-          color="success"> 1.06</v-card-text>
-      </v-card>
-    </v-flex>  
-  </v-layout>  
+        <!-- Map Legend rounded buttons -->
+        <v-container 
+          grid-list-md 
+          text-xs-center>
+          <v-layout 
+            row 
+            wrap>
+            <v-flex
+              v-for="i in 3" 
+              :key="`4${i}`" 
+              xs4>
+              <v-btn 
+                color="red"
+                fab 
+                dark 
+                small 
+                depressed/> 
+              <v-card-text 
+                class="pa-0 text-lg-right">1.06</v-card-text>
+            </v-flex>
+            <v-flex 
+              v-for="i in 3" 
+              :key="`4${i}`" 
+              xs4>
+              <v-btn 
+                class="px-0"
+                fab 
+                dark 
+                small 
+                color="green"
+                depressed/> 
+              <v-card-text 
+                class="pa-0 text-lg-right">1.08</v-card-text>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <!--  <v-list-tile>
+          <v-list-tile-avatar>
+            <v-layout>
+              <v-flex>
+                <v-btn 
+                  fab 
+                  dark 
+                  small 
+                  color="pink"
+                  depressed/> 
+              </v-flex>
+            </v-layout>
+          </v-list-tile-avatar>
+        </v-list-tile>
+        <v-layout>
+          <v-flex
+            xs3 
+            sm6 
+            offset-sm3
+            ma-2
+            pa-3>
+            <v-card-text 
+              ma-4
+              class="text-sm-right">1.06</v-card-text>
+          </v-flex>
+        </v-layout> -->
+      
+       
+      </v-card>  
+    </v-flex>
+  </v-layout>
 </template>
 <script>
 export default {
