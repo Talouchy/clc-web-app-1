@@ -13,6 +13,8 @@ const errorHandler = function (err, req, res, next) {
   }
   else if(err.name === 'MongoNetworkError')
     error = new  createError(500, 'Server Error')
+  else if (err.statusCode === 403)
+    error = new createError(403, 'Unauthorized Credentials')
   else error = new  createError(500, 'Server error')
 
   res.status(error.status).send({ok: false, msg: error.message})
