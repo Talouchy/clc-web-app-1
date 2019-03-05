@@ -3,6 +3,7 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const bodyParser = require('body-parser')
+const session = require('express-session')
 const middlewares = require('./middleware/')
 const db = require('./db')
 const apiRoutes = require('./routes/')
@@ -16,6 +17,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // Parse application/json
 app.use(bodyParser.json())
+
+// Sessions to create `req.session`
+app.use(session({
+  secret: 'super-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60000 }
+}))
 
 // Import API Routes
 app.use('/api', apiRoutes)

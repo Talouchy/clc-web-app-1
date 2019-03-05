@@ -1,5 +1,8 @@
 var router = require('express').Router()
 
+// AUTHENTICATION Routes
+router.use('/auth', require('./authentication'))
+
 // USERS Routes
 router.use('/users', require('./users'))
 
