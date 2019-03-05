@@ -155,7 +155,7 @@ export default {
       },
       {
         title: 'Staff members',
-        to: '',
+        to: '/staff_members',
         imgSrc: 'https://i.ibb.co/vYYmm0d/team-1.png',
         flex: 4
       }
