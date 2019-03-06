@@ -102,7 +102,7 @@ export default {
     items: [
       { title: 'Home', icon: 'home', to: '/dashboard' },
       { title: 'Events', icon: 'event', to: '/events' },
-      { title: 'Blog Posts', icon: 'assignment', to: '' },
+      { title: 'Blog Posts', icon: 'assignment', to: '/blogs' },
       { title: 'Floor Map', icon: 'map', to: '/floor_map' },
       { title: 'Units', icon: 'library_books', to: '' },
       { title: 'Gaming', icon: 'extension', to: '/games' },
