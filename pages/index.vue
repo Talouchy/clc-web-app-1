@@ -56,6 +56,22 @@
             Floor Map page
           </nuxt-link>
         </h2>
+        <h2
+          class="headline font-weight-bold mb-3">
+          <nuxt-link
+            to="/blogs"
+            class="subheading mx-3">
+            Blogs page
+          </nuxt-link>
+        </h2>
+        <h2
+          class="headline font-weight-bold mb-3">
+          <nuxt-link
+            to="/staff_members"
+            class="subheading mx-3">
+            Staff Members page
+          </nuxt-link>
+        </h2>
       </v-flex>
     </v-layout>
   </v-container>

@@ -106,7 +106,11 @@ export default {
       { title: 'Floor Map', icon: 'map', to: '/floor_map' },
       { title: 'Units', icon: 'library_books', to: '' },
       { title: 'Gaming', icon: 'extension', to: '/games' },
-      { title: 'Staff Members', icon: 'supervisor_account', to: '' },
+      {
+        title: 'Staff Members',
+        icon: 'supervisor_account',
+        to: '/staff_members'
+      },
       { title: 'Feedback', icon: 'send', to: '/feedback' },
       { title: 'Idea/Suggestion', icon: 'new_releases', to: '' },
       { title: 'Settings', icon: 'settings', to: '/settings' }
