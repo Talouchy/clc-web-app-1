@@ -25,6 +25,20 @@ export const actions = {
   async logout({ commit }) {
     await axios.post('/api/auth/logout')
     commit('SET_USER', null)
+  },
+
+  //fetch state.units form server
+  async fetchUnits({ commit }) {
+    try {
+      axios.get('/api/units').then(response => {
+        commit('SET_UNITS', response.data)
+      })
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        throw new Error('Bad credentials')
+      }
+      throw error
+    }
   }
 }
 

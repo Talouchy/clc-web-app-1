@@ -1,7 +1,9 @@
 export const getters = {
-  unitsByCode: state => code => {
+  unitsBytext: state => code => {
     const regex = new RegExp(code, 'gi')
-    return state.units.filter(unit => unit.code.match(regex))
+    return state.units.filter(
+      unit => unit.code.match(regex) || unit.name.match(regex)
+    )
   }
 }
 
