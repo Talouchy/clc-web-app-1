@@ -1,4 +1,6 @@
-const errorLogger = function (err, req, res, next) {
+const errorLogger = (err, req, res, next) => {
+  console.log(err)
+
   consola.error(JSON.stringify(err))
   next(err)
 }

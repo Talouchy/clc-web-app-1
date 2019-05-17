@@ -15,6 +15,8 @@ const errorHandler = function (err, req, res, next) {
     error = new  createError(500, 'Server Error')
   else if (err.statusCode === 403)
     error = new createError(403, 'Unauthorized Credentials')
+  else if (err.statusCode === 501)
+    error = new createError(501, err.message)
   else error = new  createError(500, 'Server error')
 
   res.status(error.status).send({ok: false, msg: error.message})

@@ -40,7 +40,8 @@
           
         <v-flex
           xs12
-          ma-0>  
+          ma-0
+          class="elevation-20">  
           <v-text-field
             class="primary lighten-1"
             solo

@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const session = require('express-session')
 
 module.exports = {
   mode: 'universal',
@@ -21,6 +22,24 @@ module.exports = {
       { src: 'https://www.google.com/recaptcha/api.js?render=explicit', defer: true, async: true }
     ],
   },
+
+  /*
+  ** Add server middleware
+  ** Nuxt.js uses `connect` module as server
+  ** So most of express middleware works with nuxt.js server middleware
+  */
+  serverMiddleware: [
+    // session middleware
+    session({
+      secret: '123456',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { maxAge: 60000 }
+    }),
+    // Api middleware
+    // We add /api/login & /api/logout routes
+    '~/server'
+  ],
 
   /*
   ** Customize the progress-bar color

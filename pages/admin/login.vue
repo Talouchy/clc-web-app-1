@@ -93,7 +93,7 @@ export default {
       status: false,
       icon: 'check_circle',
       type: 'success',
-      msg: 'Feedback sent. Thank you.'
+      msg: ''
     }
   }),
 

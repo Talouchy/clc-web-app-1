@@ -12,4 +12,10 @@ router.use('/feedbacks', require('./feedbacks'))
 // RECAPTCHA Routes
 router.use('/recaptcha', require('./recaptcha'))
 
+// UNIT Routes
+router.use('/units', require('./units'))
+
+// Scraping Routes
+router.use('/scrap', require('./scrap'))
+
 module.exports = router
