@@ -1,4 +1,4 @@
-<template v-slot:activator="{ on }">
+<template>
   <v-layout>
     <v-flex
       xs12
@@ -32,7 +32,10 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
 
+      <!-- Bottom search bar -->
+
       <v-layout 
+        elevation-20
         class="bottom-searchbar ma-0">
           
         <v-flex
@@ -209,15 +212,9 @@ export default {
         }
       ]
     }
+  },
+  created: function() {
+    this.$nuxt.$emit('updatePageTitle', 'Staff Members')
   }
 }
 </script>
-
-<style>
-.bottom-searchbar {
-  bottom: 0;
-  right: 0;
-  left: 0;
-  position: fixed;
-}
-</style>

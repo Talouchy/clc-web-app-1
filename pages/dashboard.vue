@@ -143,16 +143,16 @@ export default {
       },
       {
         title: 'Units',
-        to: '',
+        to: '/units',
         imgSrc: 'https://i.ibb.co/BK91HPV/books-1.png',
         flex: 4
       },
-      {
-        title: 'Gaming',
-        to: '/games',
-        imgSrc: 'https://i.ibb.co/qJsTnKX/jigsaw-2.png',
-        flex: 4
-      },
+      // {
+      //   title: 'Gaming',
+      //   to: '/games',
+      //   imgSrc: 'https://i.ibb.co/qJsTnKX/jigsaw-2.png',
+      //   flex: 4
+      // },
       {
         title: 'Staff members',
         to: '/staff_members',
