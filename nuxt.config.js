@@ -16,7 +16,7 @@ module.exports = {
       { name: 'theme-color', content: '#F7976D' },
       { name: "msapplication-navbutton-color", content: "black"},
       { name: "apple-mobile-web-app-capable", content: "yes"},
-      { name: "apple-mobile-web-app-status-bar-style", content: "black"}
+      { name: "apple-mobile-web-app-status-bar-style", content: "#F7976D"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
