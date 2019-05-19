@@ -12,11 +12,16 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: pkg.description },
+      { name: 'theme-color', content: '#F7976D' },
+      { name: "msapplication-navbutton-color", content: "black"},
+      { name: "apple-mobile-web-app-capable", content: "yes"},
+      { name: "apple-mobile-web-app-status-bar-style", content: "black"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
+      { rel: 'manifest', href: '/manifest.json' }
     ],
     script: [
       { src: 'https://www.google.com/recaptcha/api.js?render=explicit', defer: true, async: true }
