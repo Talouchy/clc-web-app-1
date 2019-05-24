@@ -3,20 +3,19 @@
     <!-- Toolbar -->
     <Toolbar :page-title="currentPageTitle"/>
 
-    <v-content class="pt-0">
+    <v-content class="pt-5 mt-2">
       <nuxt />
     </v-content>
 
     <!-- Footer -->
-    <v-container>
-      <Footer />
-    </v-container>
+    <v-container/>
   </v-app>
 </template>
 
 <script>
 import Toolbar from '~/components/toolbar/toolbar'
 import Footer from '~/components/footer/footer'
+
 export default {
   name: 'App',
   components: {
