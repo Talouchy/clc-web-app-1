@@ -6,340 +6,725 @@
       offset-lg1
       text-xs-center
       pa-1>
+
+      <v-flex
+        class="top: 0px;">
+        <v-alert
+          :value="!getUnitsStatus?displayedUnits.length==0?true:false:false"
+          color="info"
+          icon="info"
+          outline>
+          This is an info alert.
+        </v-alert>
+      </v-flex>
       
-      <v-expansion-panel  
-        popout
-        pb-3
-      >
-        <v-expansion-panel-content
-          v-for="unit in units"
-          :key="unit.id"
-          class="rounded-corner mb-3">
-          <div slot="header">
-            <span
-              class="body-2">{{ unit.code }}</span>
-            <span
-              class="caption">{{ unit.name }}</span>
-          </div>
-
-          <!-- Card for Lecture Section -->
-
-          <v-card
-            class="grey lighten-3"
-          >
-            <div
-              v-for="classe in unit.classes"
-              :key="classe.id">
-              <v-card-title
-                v-if="classe.type === 'lecture'"
-                class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
-                Lecture
-              </v-card-title>
-
-              <!-- Radio Group for Lectures -->
-
-              <v-radio-group
-                v-for="classe in unit.classes"
-                :key="classe.id"
-                class="pa-0 pl-1 ma-0"
-                row>
-
-                <!-- Layout contaning lectures  -->
-
-                <v-layout
-                  row
-                  wrap>
-
-                  <!-- Flex for radio button (Lecture section) -->
-
-                  <v-flex 
-                    xs1
-                    style="margin: auto">
-                    <v-radio 
-                      :value= "classe.id"
-                      class="pa-0"
-                      color="primary"/>
-                  </v-flex>
-
-                  <!-- Flex for day, time and location (Lecture section) -->
-
-                  <v-flex 
-                    xs6>
-                    <v-card-actions
-                      class="pa-0 ma-0">
-                      <v-card-text
-                        class="pa-0">
-                        <div
-                          class="pa-1">
-                          <v-icon 
-                            color="deep-purple darken-2">date_range</v-icon>
-                          <span class="body-1 font-weight-medium">{{ classe.day }}</span>
-                        </div>
-                        <div
-                          class="pa-1">
-                          <v-icon
-                            color="teal darken-2">schedule</v-icon>
-                          <span class="body-1 font-weight-medium">{{ classe.time }}</span>
-                        </div>
-                        <div
-                          class="pa-1">
-                          <v-icon
-                            color="red darken-2">room</v-icon>
-                          <span class="body-1 font-weight-medium">{{ classe.location }}</span>
-                        </div>
-                      </v-card-text>
-                    </v-card-actions>
-                  </v-flex>
-
-                  <!-- Flex for staff, start date and end date (Lecture section) -->
-
-                  <v-flex xs5>
-                    <v-card-actions 
-                      class="pa-0">
-                      <v-card-text
-                        class="pa-0">
-                        <div
-                          class="pa-1">
-                          <v-icon
-                            color="orange darken-2">today</v-icon>
-                          <span class="body-1 font-weight-medium">{{ classe.startdate }}</span>
-                        </div>
-                        <div
-                          class="pa-1">
-                          <v-icon
-                            color="brown darken-2">event</v-icon>
-                          <span class="body-1 font-weight-medium">{{ classe.enddate }}</span>
-                        </div>
-                      </v-card-text>
-                    </v-card-actions>
-                  </v-flex>
-                  <v-flex xs1/>
-                  <v-flex xs11>
-                    <div
-                      class="pa-1">
-                      <v-icon
-                        color="blue darken-2">people</v-icon>
-                      <span class="body-1 font-weight-medium">{{ classe.staff }}</span>
-                    </div>
-                  </v-flex>
-
-                </v-layout>
-                <!-- Divider flex (Lecture section) -->
-                
-              </v-radio-group>
+      <v-flex class="mb-5 pb-5">
+        <v-expansion-panel  
+          popout
+          pb-3
+        >
+          <v-expansion-panel-content
+            v-for="unit in displayedUnits"
+            :key="unit.id"
+            class="rounded-corner mb-3">
+            <div slot="header">
+              <span
+                class="body-2">{{ unit.code }}</span>
+              <span
+                class="caption">{{ unit.name }}</span>
             </div>
-            
-          </v-card>
 
-          <!-- Divider seperating Lectures and Tutorials -->
+            <!-- Card for Lecture Section -->
 
-          <v-divider
-            style="border-top: 2px solid black;"/>
-          
-          <!-- Card for Tutorial Section -->
-
-          <v-card
-            class="grey lighten-3">
-            <v-card-title
-              class="subheading grey lighten-2 pa-2 font-weight-medium">
-              Tutorials
-            </v-card-title>
-            
-            <!-- Radio group for tutorials -->
-
-            <v-radio-group
-              v-for="tutorial in unit.tutorials"
-              v-model="tutorial_radio"
-              :key="tutorial.day"
-              class="pa-0 pt-2 ma-0"
-              row>
-
-              <!-- Layout contaning tutorials  -->
-
-              <v-layout
-                row
-                wrap>
-
-                <!-- Flex for radio button (Tutorial section) -->
-
-                <v-flex 
-                  xs2
-                  style="margin: auto">
-                  <v-radio 
-                    value="radio-1"
-                    class="ma-2 pa-0"
-                    color="primary"/>
-                </v-flex>
-                
-                <!-- Flex for day, time and location (Tutorial section) -->
-
-                <v-flex xs5>
-                  <v-card-actions
-                    class="pa-0 mr-2">
-                    <v-card-text
-                      class="pa-0">
+            <v-card
+              class="grey lighten-3">
+              <div>
+                <!-- Lecture Start -->
+                <v-card-title
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'lecture').length == 0)?'none':'block'}"
+                  class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
+                  Lecture
+                </v-card-title>
+                <v-radio-group
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'lecture').length == 0)?'none':'block'}"
+                  class="pa-0 pl-1 ma-0"
+                  column>
+                  <v-layout
+                    v-for="classes in unit.classes.filter((clss, index, array) => {
+                      return clss.type == 'lecture'
+                    })"
+                    :key="classes._id" 
+                    row
+                    wrap
+                    class="ma-1">
+                    <v-flex
+                      xs1
+                      style="margin: auto">
+                      <v-radio 
+                        :value="classes._id"
+                        class="pa-0"
+                        color="primary"/>
+                    </v-flex>
+                    <v-flex 
+                      xs6>
+                      <v-card-actions
+                        class="pa-0 ma-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon 
+                              color="deep-purple darken-2">date_range</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.day }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="teal darken-2">schedule</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.time }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="red darken-2">room</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.location }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-actions 
+                        class="pa-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="orange darken-2">today</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.startDate }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="brown darken-2">event</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.endDate }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs1/>
+                    <v-flex xs11>
                       <div
-                        class="pa-1">
-                        <v-icon 
-                          color="deep-purple darken-2">date_range</v-icon>
-                        <span class="body-1 font-weight-medium">{{ tutorial.day }}</span>
-                      </div>
-                      <div
-                        class="pa-1">
-                        <v-icon
-                          color="teal darken-2">schedule</v-icon>
-                        <span class="body-1 font-weight-medium">{{ tutorial.time }}</span>
-                      </div>
-                      <div
-                        class="pa-1">
-                        <v-icon
-                          color="red darken-2">room</v-icon>
-                        <span class="body-1 font-weight-medium">{{ tutorial.location }}</span>
-                      </div>
-                    </v-card-text>
-                  </v-card-actions>
-                </v-flex>
-
-                <!-- Flex for staff, start date and end date (Tutorial section) -->
-
-                <v-flex xs5>
-                  <v-card-actions 
-                    class="pa-0">
-                    <v-card-text
-                      class="pa-0">
-                      <div
-                        class="pa-1">
+                        class="pa-1 pb-2">
                         <v-icon
                           color="blue darken-2">people</v-icon>
-                        <span class="body-1 font-weight-medium">{{ tutorial.staff }}</span>
+                        <span class="body-1 font-weight-medium">{{ classes.staff }}</span>
                       </div>
+                    </v-flex>
+                    <v-divider
+                      inset/>
+                  </v-layout>
+                </v-radio-group>
+  
+                <!-- Tutorial Start -->
+                <v-card-title
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'tutorial').length == 0)?'none':'block'}"
+                  class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
+                  Tutorial
+                </v-card-title>
+                <v-radio-group
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'tutorial').length == 0)?'none':'block'}"
+                  class="pa-0 pl-1 ma-0"
+                  column>
+                  <v-layout
+                    v-for="classes in unit.classes.filter((clss, index, array) => {
+                      return clss.type == 'tutorial'
+                    })"
+                    :key="classes._id" 
+                    row
+                    wrap
+                    class="ma-1">
+                    <v-flex
+                      xs1
+                      style="margin: auto">
+                      <v-radio 
+                        :value="classes._id"
+                        class="pa-0"
+                        color="primary"/>
+                    </v-flex>
+                    <v-flex 
+                      xs6>
+                      <v-card-actions
+                        class="pa-0 ma-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon 
+                              color="deep-purple darken-2">date_range</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.day }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="teal darken-2">schedule</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.time }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="red darken-2">room</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.location }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-actions 
+                        class="pa-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="orange darken-2">today</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.startDate }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="brown darken-2">event</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.endDate }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs1/>
+                    <v-flex xs11>
                       <div
-                        class="pa-1">
+                        class="pa-1 pb-2">
                         <v-icon
-                          color="orange darken-2">today</v-icon>
-                        <span class="body-1 font-weight-medium">{{ tutorial.startdate }}</span>
+                          color="blue darken-2">people</v-icon>
+                        <span class="body-1 font-weight-medium">{{ classes.staff }}</span>
                       </div>
+                    </v-flex>
+                    <v-divider
+                      inset/>
+                  </v-layout>
+                </v-radio-group>
+
+                <!-- Workshop Start -->
+                <v-card-title
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'workshop').length == 0)?'none':'block'}"
+                  class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
+                  Workshop
+                </v-card-title>
+                <v-radio-group
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'workshop').length == 0)?'none':'block'}"
+                  class="pa-0 pl-1 ma-0"
+                  column>
+                  <v-layout
+                    v-for="classes in unit.classes.filter((clss, index, array) => {
+                      return clss.type == 'workshop'
+                    })"
+                    :key="classes._id" 
+                    row
+                    wrap
+                    class="ma-1">
+                    <v-flex
+                      xs1
+                      style="margin: auto">
+                      <v-radio 
+                        :value="classes._id"
+                        class="pa-0"
+                        color="primary"/>
+                    </v-flex>
+                    <v-flex 
+                      xs6>
+                      <v-card-actions
+                        class="pa-0 ma-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon 
+                              color="deep-purple darken-2">date_range</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.day }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="teal darken-2">schedule</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.time }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="red darken-2">room</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.location }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-actions 
+                        class="pa-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="orange darken-2">today</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.startDate }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="brown darken-2">event</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.endDate }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs1/>
+                    <v-flex xs11>
                       <div
-                        class="pa-1">
+                        class="pa-1 pb-2">
                         <v-icon
-                          color="brown darken-2">event</v-icon>
-                        <span class="body-1 font-weight-medium">{{ tutorial.enddate }}</span>
+                          color="blue darken-2">people</v-icon>
+                        <span class="body-1 font-weight-medium">{{ classes.staff }}</span>
                       </div>
-                    </v-card-text>
-                  </v-card-actions>
-                </v-flex>
-               
-                <!-- Divider flex (Tutorial section) -->
+                    </v-flex>
+                    <v-divider
+                      inset/>
+                  </v-layout>
+                </v-radio-group>
 
-                <v-flex 
-                  xs12
-                  pa-2>
-                  <v-divider/>
-                </v-flex>
-                
-              </v-layout>
-            </v-radio-group>
-          </v-card>
+                <!-- Laboratory Start -->
+                <v-card-title
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'laboratory').length == 0)?'none':'block'}"
+                  class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
+                  Laboratory
+                </v-card-title>
+                <v-radio-group
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'laboratory').length == 0)?'none':'block'}"
+                  class="pa-0 pl-1 ma-0"
+                  column>
+                  <v-layout
+                    v-for="classes in unit.classes.filter((clss, index, array) => {
+                      return clss.type == 'laboratory'
+                    })"
+                    :key="classes._id" 
+                    row
+                    wrap
+                    class="ma-1">
+                    <v-flex
+                      xs1
+                      style="margin: auto">
+                      <v-radio 
+                        :value="classes._id"
+                        class="pa-0"
+                        color="primary"/>
+                    </v-flex>
+                    <v-flex 
+                      xs6>
+                      <v-card-actions
+                        class="pa-0 ma-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon 
+                              color="deep-purple darken-2">date_range</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.day }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="teal darken-2">schedule</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.time }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="red darken-2">room</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.location }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-actions 
+                        class="pa-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="orange darken-2">today</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.startDate }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="brown darken-2">event</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.endDate }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs1/>
+                    <v-flex xs11>
+                      <div
+                        class="pa-1 pb-2">
+                        <v-icon
+                          color="blue darken-2">people</v-icon>
+                        <span class="body-1 font-weight-medium">{{ classes.staff }}</span>
+                      </div>
+                    </v-flex>
+                    <v-divider
+                      inset/>
+                  </v-layout>
+                </v-radio-group>
 
-        </v-expansion-panel-content>
-      </v-expansion-panel>
+                <!-- Res School Start -->
+                <v-card-title
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'res_school').length == 0)?'none':'block'}"
+                  class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
+                  Res School
+                </v-card-title>
+                <v-radio-group
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'res_school').length == 0)?'none':'block'}"
+                  class="pa-0 pl-1 ma-0"
+                  column>
+                  <v-layout
+                    v-for="classes in unit.classes.filter((clss, index, array) => {
+                      return clss.type == 'res_school'
+                    })"
+                    :key="classes._id" 
+                    row
+                    wrap
+                    class="ma-1">
+                    <v-flex
+                      xs1
+                      style="margin: auto">
+                      <v-radio 
+                        :value="classes._id"
+                        class="pa-0"
+                        color="primary"/>
+                    </v-flex>
+                    <v-flex 
+                      xs6>
+                      <v-card-actions
+                        class="pa-0 ma-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon 
+                              color="deep-purple darken-2">date_range</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.day }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="teal darken-2">schedule</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.time }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="red darken-2">room</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.location }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-actions 
+                        class="pa-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="orange darken-2">today</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.startDate }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="brown darken-2">event</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.endDate }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs1/>
+                    <v-flex xs11>
+                      <div
+                        class="pa-1 pb-2">
+                        <v-icon
+                          color="blue darken-2">people</v-icon>
+                        <span class="body-1 font-weight-medium">{{ classes.staff }}</span>
+                      </div>
+                    </v-flex>
+                    <v-divider
+                      inset/>
+                  </v-layout>
+                </v-radio-group>
 
-      <!-- Bottom layout with button and searchbar -->
+                <!-- Presentation Start -->
+                <v-card-title
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'presentation').length == 0)?'none':'block'}"
+                  class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
+                  Presentation
+                </v-card-title>
+                <v-radio-group
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'presentation').length == 0)?'none':'block'}"
+                  class="pa-0 pl-1 ma-0"
+                  column>
+                  <v-layout
+                    v-for="classes in unit.classes.filter((clss, index, array) => {
+                      return clss.type == 'presentation'
+                    })"
+                    :key="classes._id" 
+                    row
+                    wrap
+                    class="ma-1">
+                    <v-flex
+                      xs1
+                      style="margin: auto">
+                      <v-radio 
+                        :value="classes._id"
+                        class="pa-0"
+                        color="primary"/>
+                    </v-flex>
+                    <v-flex 
+                      xs6>
+                      <v-card-actions
+                        class="pa-0 ma-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon 
+                              color="deep-purple darken-2">date_range</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.day }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="teal darken-2">schedule</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.time }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="red darken-2">room</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.location }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-actions 
+                        class="pa-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="orange darken-2">today</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.startDate }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="brown darken-2">event</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.endDate }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs1/>
+                    <v-flex xs11>
+                      <div
+                        class="pa-1 pb-2">
+                        <v-icon
+                          color="blue darken-2">people</v-icon>
+                        <span class="body-1 font-weight-medium">{{ classes.staff }}</span>
+                      </div>
+                    </v-flex>
+                    <v-divider
+                      inset/>
+                  </v-layout> 
+                </v-radio-group>
 
-      <v-layout 
-        row
-        wrap
-        class="bottom-searchbar ma-0">
+                <!-- Practical Start -->
+                <v-card-title
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'practical').length == 0)?'none':'block'}"
+                  class="subheading grey lighten-2 pa-2 font-weight-medium mb-1">
+                  Practical
+                </v-card-title>
+                <v-radio-group
+                  :style="{display: (unit.classes.filter((clss, index, array) => clss.type == 'practical').length == 0)?'none':'block'}"
+                  class="pa-0 pl-1 ma-0"
+                  column>
+                  <v-layout
+                    v-for="classes in unit.classes.filter((clss, index, array) => {
+                      return clss.type == 'practical'
+                    })"
+                    :key="classes._id" 
+                    row
+                    wrap
+                    class="ma-1">
+                    <v-flex
+                      xs1
+                      style="margin: auto">
+                      <v-radio 
+                        :value="classes._id"
+                        class="pa-0"
+                        color="primary"/>
+                    </v-flex>
+                    <v-flex 
+                      xs6>
+                      <v-card-actions
+                        class="pa-0 ma-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon 
+                              color="deep-purple darken-2">date_range</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.day }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="teal darken-2">schedule</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.time }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="red darken-2">room</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.location }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-card-actions 
+                        class="pa-0">
+                        <v-card-text
+                          class="pa-0">
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="orange darken-2">today</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.startDate }}</span>
+                          </div>
+                          <div
+                            class="pa-1">
+                            <v-icon
+                              color="brown darken-2">event</v-icon>
+                            <span class="body-1 font-weight-medium">{{ classes.endDate }}</span>
+                          </div>
+                        </v-card-text>
+                      </v-card-actions>
+                    </v-flex>
+                    <v-flex xs1/>
+                    <v-flex xs11>
+                      <div
+                        class="pa-1 pb-2">
+                        <v-icon
+                          color="blue darken-2">people</v-icon>
+                        <span class="body-1 font-weight-medium">{{ classes.staff }}</span>
+                      </div>
+                    </v-flex>
+                    <v-divider
+                      inset/>
+                  </v-layout> 
+                </v-radio-group>
+              </div>
+            </v-card>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-flex>
 
+      <!-- Bottom layout with button and searchbar -->      
+      <!-- Bottom search bar -->
+      <v-flex
+        class="bottom-searchbar"
+        xs12
+        ma-0>
         <!-- Button create timetable -->
-
-        <v-flex
-          xs12
-          mb-2>
-          <v-fab-transition>
-            <v-btn
-              v-show="!hidden"
-              color="primary lighten-1"
-              dark
-              round
-              to="/timetable"
-            >
-              Create Timetable 
-            </v-btn>
-          </v-fab-transition>
-        </v-flex>
-        
-        <!-- Bottom search bar -->
-
-        <v-layout elevation-20>
-          <v-flex
-            xs12
-            ma-0>  
-            <v-text-field
-              class="primary lighten-1"
-              solo
-              flat
-              label="Search Units"
-              append-icon="search"
-            />
-          </v-flex>
-        </v-layout>
-      </v-layout>
+        <v-btn
+          v-show="!hidden"
+          :style="{visibility: !getUnitsStatus?'visible':'hidden'}"
+          color="primary lighten-1"
+          dark
+          round
+          to="/timetable">
+          Create Timetable 
+        </v-btn>
+        <v-progress-linear 
+          :indeterminate="getUnitsStatus"
+          class="ma-0"/>
+        <v-text-field
+          id="search"
+          :append-icon="'search'"
+          :disabled="!getUnitsStatus?false:true"
+          class="primary lighten-1"
+          solo
+          flat
+          label="ppmp20007..."
+          @click:append="findUnits()"
+        />
+      </v-flex>
     </v-flex>
     
   </v-layout>
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState, mapGetters, mapMutations } from 'vuex'
+
 export default {
   data: () => {
     return {
+      displayedUnits: [],
       hidden: false,
-      units: [
-        {
-          id: '123',
-          code: 'COIT20211',
-          name: 'Programming in C++',
-          classes: [
-            {
-              id: '1',
-              type: 'lecture',
-              day: 'Friday',
-              time: '10:00 - 13:00',
-              location: 'MEL 01/5.01',
-              staff: 'Azmat, Ullahbvnmkkbhgcfxd,',
-              startdate: '13/01/19',
-              enddate: '18/03/19'
-            },
-            {
-              id: '2',
-              type: 'tutorial',
-              day: 'Saturday',
-              time: '10:00 - 13:00',
-              location: 'MEL 01/4.01',
-              staff: 'Azmat, Ullah',
-              startdate: '13/03/19',
-              enddate: '18/06/19'
-            },
-            {
-              id: '3',
-              type: 'tutorial',
-              day: 'workshop',
-              time: '08:00 - 12:00',
-              location: 'MEL 01/4.01',
-              staff: 'Azmat, Ullah',
-              startdate: '13/03/19',
-              enddate: '18/06/19'
-            }
-          ]
+      loading: false
+    }
+  },
+  computed: {
+    ...mapGetters(['getUnitsByText', 'getUnitsStatus']),
+    ...mapState(['units']),
+    testing() {
+      if (!this.getUnitsStatus) {
+        if (this.displayedUnits.length == 0) {
+          return true
+        } else {
+          return false
         }
-      ],
-      lecture_radio: '',
-      tutorial_radio: ''
+      } else {
+        return false
+      }
     }
   },
   created: function() {
     this.$nuxt.$emit('updatePageTitle', 'Units')
+    this.$store.dispatch('fetchUnits')
+  },
+  methods: {
+    findUnits() {
+      this.displayedUnits = this.getUnitsByText(
+        document.querySelector('#search').value
+      )
+    }
   }
 }
 </script>
