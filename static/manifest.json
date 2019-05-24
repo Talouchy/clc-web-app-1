@@ -1,0 +1,14 @@
+{
+  "short_name": "CLCAPP",
+  "name": "CLC APP",
+  "icons": [
+    {
+      "src": "/v.png",
+      "type": "image/png",
+      "sizes": "120x120"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#3367D6"
+}
