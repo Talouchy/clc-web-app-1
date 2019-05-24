@@ -1,7 +1,26 @@
 <template>
-  <v-layout
-    wrap
-    style="height: 200px;">
+  <v-layout>
+    <v-toolbar
+      flat
+      app
+      dark 
+      class="primary lighten-1">
+      <v-btn icon>
+        <v-icon 
+          color="white"
+          @click.stop="drawer = !drawer">dashboard</v-icon>
+      </v-btn>
+        
+      <v-spacer />
+      <v-toolbar-title class="white--text">{{ pageTitle }}</v-toolbar-title>
+      <v-spacer />
+
+      <v-btn 
+        to="/"
+        icon>
+        <v-icon color="white">home</v-icon>
+      </v-btn>
+    </v-toolbar>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="mini"
@@ -59,27 +78,6 @@
         v-if="!mini"
         @click.stop="mini = !mini"/>
     </v-navigation-drawer>
-    <v-toolbar
-      flat
-      app
-      dark 
-      class="primary lighten-1">
-      <v-btn icon>
-        <v-icon 
-          color="white"
-          @click.stop="drawer = !drawer">dashboard</v-icon>
-      </v-btn>
-        
-      <v-spacer />
-      <v-toolbar-title class="white--text">{{ pageTitle }}</v-toolbar-title>
-      <v-spacer />
-
-      <v-btn 
-        to="/"
-        icon>
-        <v-icon color="white">home</v-icon>
-      </v-btn>
-    </v-toolbar>
   </v-layout>
 </template>
 
