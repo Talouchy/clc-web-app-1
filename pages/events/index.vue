@@ -41,7 +41,7 @@
               :size="size"
               color="grey lighten-4">
               <img
-                src="https://scontent-syd2-1.xx.fbcdn.net/v/t1.0-9/46513689_1935782626470533_5753247360306118656_n.jpg?_nc_cat=107&_nc_ht=scontent-syd2-1.xx&oh=e99f15e58ee35fd08d5ac29cc7b5244a&oe=5CBF6D36"
+                src="https://i.ibb.co/4ZC0tQG/avatar-round-1.png"
                 alt="Xmas-event">
             </v-avatar>
           </v-flex>
