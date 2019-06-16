@@ -12,15 +12,12 @@
         <v-card 
           color="white" 
           class="rounded-corner">
-          <v-card-title 
-            xs6
-            sm6
-            pa-6
+          <v-card-title
             primary-title/>
           <v-img
-            src="https://library.ucr.edu/sites/default/files/OrbachGroundFloor.jpg"
+            :src="plan"
             alt="Floor-map"
-            max-height="350"
+            max-height="300"
             contain/>
         </v-card>
       </v-flex>
@@ -33,81 +30,43 @@
         class="rounded-corner"
         elevation-10>
         <!-- Drop down menu -->
-        <v-card-text
-          pa-3
-          mt-3
-          class="title font-weight-regular text-lg-center">Levels</v-card-text>
-        <v-overflow-btn
-          :items="levels"
-          label="Choose level.."
-          color="cyan darken-4" 
-          target="#dropdown-example"/>
-        <v-divider light/>
-        <v-spacer/>
-        <!-- Map Legend rounded buttons -->
-        <v-container 
-          grid-list-md 
-          text-xs-center>
-          <v-layout 
-            row 
-            wrap>
-            <v-flex
-              v-for="i in 3" 
-              :key="`4${i}`" 
-              xs4>
-              <v-btn 
-                color="red"
-                fab 
-                dark 
-                small 
-                depressed/> 
-              <v-card-text 
-                class="pa-0 text-lg-right">1.06</v-card-text>
-            </v-flex>
-            <v-flex 
-              v-for="i in 3" 
-              :key="`4${i}`" 
-              xs4>
-              <v-btn 
-                class="px-0"
-                fab 
-                dark 
-                small 
-                color="green"
-                depressed/> 
-              <v-card-text 
-                class="pa-0 text-lg-right">1.08</v-card-text>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <!--  <v-list-tile>
-          <v-list-tile-avatar>
-            <v-layout>
-              <v-flex>
-                <v-btn 
-                  fab 
-                  dark 
-                  small 
-                  color="pink"
-                  depressed/> 
-              </v-flex>
-            </v-layout>
-          </v-list-tile-avatar>
-        </v-list-tile>
-        <v-layout>
+        <v-flex
+          pt-3
+          px-5
+          xs12>
+          <v-overflow-btn
+            v-model="select"
+            :items="levels"
+            item-text="title"
+            item-value="id"
+            label="Choose level.."
+            return-object
+            @change="getLegends(select.id)"
+          />
+        </v-flex>
+        <v-layout
+          row
+          wrap
+          fluid
+          align-center="true">
+          
           <v-flex
-            xs3 
-            sm6 
-            offset-sm3
-            ma-2
-            pa-3>
-            <v-card-text 
-              ma-4
-              class="text-sm-right">1.06</v-card-text>
+            v-for="legend in wow"
+            :key="legend.id"
+            xs4
+            sm3
+            text-xs-center>
+            <v-card
+              flat
+              tile>
+              <img
+                :src="legend.icon"
+                height="30"
+                width="30">
+              <p v-text="legend.name"/>
+            </v-card>
           </v-flex>
-        </v-layout> -->
-      
-       
+        </v-layout>
       </v-card>  
     </v-flex>
   </v-layout>
@@ -115,10 +74,177 @@
 <script>
 export default {
   data: () => ({
-    levels: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6']
+    selectedId: 1,
+    select: {
+      id: '1',
+      title: 'Ground Floor',
+      plan: 'src',
+      legends: []
+    },
+    levels: [
+      {
+        id: '1',
+        title: 'Ground Floor',
+        plan:
+          'https://i.ibb.co/CsFxp5q/floorplan-preview-jpg-flinders-image-2200-low.jpg',
+        legends: [
+          {
+            id: '1',
+            name: 'cafeteria',
+            icon: 'https://i.ibb.co/6vm2p55/coffe-cup-silhouette.png'
+          },
+          {
+            id: '2',
+            name: 'Parking',
+            icon: 'https://i.ibb.co/BsXWFCb/letter-p.png'
+          },
+          {
+            id: '3',
+            name: 'Security desk',
+            icon: 'https://i.ibb.co/gr7F18K/police-metal-plate.png'
+          },
+          {
+            id: '4',
+            name: 'Elevator',
+            icon: 'https://i.ibb.co/Lx62xBZ/photo6024076432101191723.jpg'
+          }
+        ]
+      },
+      {
+        id: '2',
+        title: 'Level 1',
+        plan: 'https://i.ibb.co/6grpNrY/interior-level-3.jpg',
+        legends: [
+          {
+            id: '1',
+            name: 'Information Desk',
+            icon: 'https://i.ibb.co/Pz0sp64/luggage-information.png'
+          },
+          {
+            id: '2',
+            name: 'Elevator',
+            icon: 'https://i.ibb.co/Lx62xBZ/photo6024076432101191723.jpg'
+          },
+          {
+            id: '3',
+            name: 'Toilet',
+            icon: 'https://i.ibb.co/0ZTys7V/photo6024076432101191724.jpg'
+          },
+          {
+            id: '4',
+            name: 'Reading Area',
+            icon: 'https://i.ibb.co/MCTH19F/teacher-reading.png'
+          },
+          {
+            id: '5',
+            name: 'First aid',
+            icon: 'https://i.ibb.co/6tn4KXZ/pharmacy-cross-sign.png'
+          }
+        ]
+      },
+      {
+        id: '3',
+        title: 'Level 2',
+        plan: 'https://i.ibb.co/FHV65Z1/level-two.jpg',
+        legends: [
+          {
+            id: '1',
+            name: 'Library',
+            icon: 'https://i.ibb.co/hVn5BnS/photo6024076432101191725.jpg'
+          },
+          {
+            id: '2',
+            name: 'Dining Area',
+            icon: 'https://i.ibb.co/ByhKCP7/knife-and-fork-silhouette.png'
+          },
+          {
+            id: '3',
+            name: 'Elevator',
+            icon: 'https://i.ibb.co/Lx62xBZ/photo6024076432101191723.jpg'
+          },
+          {
+            id: '4',
+            name: 'Toilet',
+            icon: 'https://i.ibb.co/0ZTys7V/photo6024076432101191724.jpg'
+          },
+          {
+            id: '5',
+            name: 'Reading Area',
+            icon: 'https://i.ibb.co/MCTH19F/teacher-reading.png'
+          },
+          {
+            id: '6',
+            name: 'First aid',
+            icon: 'https://i.ibb.co/6tn4KXZ/pharmacy-cross-sign.png'
+          },
+          {
+            id: '7',
+            name: 'Prayer room',
+            icon: 'https://i.ibb.co/hy9kptV/om-symbol.png'
+          }
+        ]
+      },
+      {
+        id: '4',
+        title: 'Level 3',
+        plan:
+          'https://library.ucr.edu/sites/default/files/OrbachGroundFloor.jpg',
+        legends: [
+          {
+            id: '1',
+            name: 'Dining Area',
+            icon: 'https://i.ibb.co/ByhKCP7/knife-and-fork-silhouette.png'
+          },
+          {
+            id: '2',
+            name: 'Elevator',
+            icon: 'https://i.ibb.co/Lx62xBZ/photo6024076432101191723.jpg'
+          },
+          {
+            id: '3',
+            name: 'Toilet',
+            icon: 'https://i.ibb.co/0ZTys7V/photo6024076432101191724.jpg'
+          },
+          {
+            id: '4',
+            name: 'Reading Area',
+            icon: 'https://i.ibb.co/MCTH19F/teacher-reading.png'
+          },
+          {
+            id: '5',
+            name: 'First aid',
+            icon: 'https://i.ibb.co/6tn4KXZ/pharmacy-cross-sign.png'
+          },
+          {
+            id: '6',
+            name: 'Class Room',
+            icon: 'https://i.ibb.co/fGx3LvD/photo6024076432101191726.jpg'
+          },
+          {
+            id: '7',
+            name: 'Computer Lab',
+            icon: 'https://i.ibb.co/v4yKBHk/photo6024076432101191727.jpg'
+          }
+        ]
+      }
+    ]
   }),
+  computed: {
+    wow() {
+      console.log(this.selectedId)
+      return this.levels[this.selectedId - 1].legends
+    },
+    plan() {
+      return this.levels[this.selectedId - 1].plan
+    }
+  },
   created: function() {
     this.$nuxt.$emit('updatePageTitle', 'Floor Map')
+  },
+  methods: {
+    getLegends(id) {
+      this.selectedId = id
+    }
   }
 }
 </script>
